@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- 标题修改为「-福星高照-麻将择位」 -->
     <title>-福星高照-麻将择位</title>
     <style>
         * {
@@ -14,68 +15,148 @@
         body {
             background: linear-gradient(135deg, #101010 0%, #1a1a2e 100%);
             color: #fff;
-            padding: 15px 10px;
+            padding: 10px; /* 减少整体内边距，更紧凑 */
             min-height: 100vh;
         }
+        /* 核心：整体两列布局，优化间距更紧凑 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 整体两列 */
+            gap: 10px; /* 列间距缩小，更紧凑 */
+        }
+        /* 标题样式调整，更紧凑 */
         .title {
+            grid-column: 1 / 3; /* 跨两列 */
             text-align: center;
-            font-size: 24px;
+            font-size: 24px; /* 字号缩小，更紧凑 */
             color: #ffd700;
-            margin: 0 0 15px;
+            margin: 8px 0 10px; /* 减少上下间距 */
             font-weight: bold;
-            text-shadow: 0 0 12px #ffd700;
+            text-shadow: 0 0 8px #ffd700;
             letter-spacing: 1px;
         }
         .today {
+            grid-column: 1 / 3; /* 跨两列 */
             text-align: center;
             color: #ccc;
-            font-size: 13px;
-            margin-bottom: 15px;
+            font-size: 12px; /* 字号缩小 */
+            margin-bottom: 8px;
         }
+        /* 卡片样式优化，更紧凑 */
         .card {
             background: rgba(40,40,50,0.9);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
+            border-radius: 8px; /* 圆角缩小 */
+            padding: 12px; /* 内边距减少 */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(255,215,0,0.1);
+            height: fit-content;
+        }
+
+        /* 表单内部两列排版（更紧凑） */
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px; /* 表单内列间距缩小 */
+        }
+        .form-col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px; /* 表单项间距缩小 */
         }
         .form-item {
-            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px; /* 标签和输入框间距缩小 */
         }
-        label {
-            font-size: 14px;
+        .form-item label {
+            font-size: 12px; /* 标签字号缩小 */
             color: #ffd700;
-            display: block;
-            margin-bottom: 5px;
             font-weight: 500;
+            display: flex;
+            align-items: center;
         }
+        /* 标签小图标 */
+        .form-item label::before {
+            content: "";
+            display: inline-block;
+            width: 6px; /* 图标缩小 */
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+        .form-item:nth-child(1) label::before,
+        .form-item:nth-child(5) label::before { background: #ffd700; }
+        .form-item:nth-child(2) label::before,
+        .form-item:nth-child(6) label::before { background: #ffd700; }
+        .form-item:nth-child(3) label::before,
+        .form-item:nth-child(7) label::before { background: #f5a623; }
+        .form-item:nth-child(4) label::before,
+        .form-item:nth-child(8) label::before { background: #0099ff; }
+
+        /* 输入框/下拉框样式优化，更紧凑 */
         select, input {
             width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            border-radius: 8px;
+            padding: 8px 10px; /* 内边距减少 */
+            font-size: 12px; /* 字号缩小 */
+            border-radius: 6px; /* 圆角缩小 */
             border: none;
             background: rgba(50,50,65,0.9);
             color: #fff;
             outline: none;
             transition: 0.3s;
+            border: 1px solid transparent;
         }
         select:focus, input:focus {
-            box-shadow: 0 0 0 2px #ffd700;
+            box-shadow: none;
+            border-color: rgba(255,215,0,0.3);
         }
+        /* 下拉框箭头样式 */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%23ccc'%3E%3Cpath d='M0 0l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 10px;
+            padding-right: 24px;
+        }
+
+        /* 输赢记录区域（更紧凑） */
+        .record-box {
+            grid-column: 1 / 3;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,215,0,0.1);
+        }
+        .record-box label {
+            display: block;
+            color: #ffd700;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+        .record-row {
+            display:flex;
+            gap:6px;
+        }
+        .record-row .half {
+            flex:1;
+        }
+
+        /* 按钮样式优化，更紧凑 */
         .main-btn {
+            grid-column: 1 / 3;
             width: 100%;
             background: linear-gradient(90deg, #ff4444, #ff6b6b);
             color: #fff;
             font-weight: bold;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 8px; /* 内边距减少 */
+            border-radius: 6px;
             border: none;
-            font-size: 16px;
+            font-size: 14px; /* 字号缩小 */
             margin-top: 8px;
-            box-shadow: 0 3px 10px rgba(255,68,68,0.4);
+            box-shadow: 0 2px 6px rgba(255,68,68,0.4);
             cursor: pointer;
             transition: 0.3s;
         }
@@ -83,135 +164,219 @@
             transform: scale(0.97);
             opacity: 0.9;
         }
+
+        /* 结果区域两列排版（更紧凑） */
         .result {
-            font-size: 14px;
-            line-height: 1.8;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px; /* 结果项间距缩小 */
+            font-size: 12px; /* 字号缩小 */
+            line-height: 1.6; /* 行高缩小 */
         }
         .result div {
             padding: 2px 0;
+            word-break: break-all;
+        }
+        /* 特殊项跨两列 */
+        .result .col-span-2 {
+            grid-column: 1 / 3;
         }
         .ok { color: #00ff88; font-weight:bold; }
         .warn { color: #ffff00; font-weight:bold; }
         .error { color: #ff4444; font-weight:bold; }
         .star { color: #ffd700; font-weight:bold; }
         .env { color: #1E90FF; font-weight:bold; }
-        .name { color: #ff9d00; font-weight:bold; } /* 姓名分析专属色 */
-        .time { color: #66ccff; font-weight:bold; } /* 测算时间专属色 */
-        /* 修改：姓名适配方位专属样式 - 红色+放大一倍字体 */
+        .name { color: #ff9d00; font-weight:bold; }
+        .time { color: #66ccff; font-weight:bold; }
+
+        /* 今日最佳旺位置样式（跨两列，优化大小） */
         .name-dir-text { 
-            color: #ff0000; /* 改为纯红色 */
+            color: #ff0000; 
             font-weight:bold; 
-            font-size: 36px; /* 从18px放大一倍到36px */
-            text-shadow: 0 0 12px #ff0000; /* 红色阴影更醒目 */
-            display: inline-block; /* 防止字体过大导致排版错乱 */
-            margin: 5px 0; /* 增加上下间距 */
+            font-size: 28px; /* 字号缩小，更紧凑 */
+            text-shadow: 0 0 8px #ff0000;
+            display: inline-block;
+            margin: 3px 0;
         }
+
+        .stat-item {
+            font-size:12px;
+            padding:2px 0;
+        }
+        .win-text { color:#00ff88; font-weight:bold; }
+        .lose-text { color:#ff4444; font-weight:bold; }
+        .net-text { color:#ffd700; font-weight:bold; font-size:14px; }
+
+        /* 提示区域更紧凑 */
         .tips {
+            grid-column: 1 / 3;
             background: rgba(50,50,65,0.6);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 10px; /* 字号缩小 */
             color: #eee;
-            margin-top: 10px;
-            line-height: 1.4;
+            margin-top: 8px;
+            line-height: 1.3;
         }
         #resultBox {
             display: none;
         }
+
+        /* 响应式适配：手机端优化（更紧凑） */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr; /* 手机端整体单列 */
+                gap: 8px; /* 间距更小 */
+            }
+            .title, .today {
+                grid-column: 1 / 2;
+            }
+            /* 手机端表单和结果都变回单列，间距更紧凑 */
+            .form-container, .result {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            .result .col-span-2, .record-box, .main-btn, .tips {
+                grid-column: 1 / 2;
+            }
+            /* 手机端标题字号再缩小 */
+            .title {
+                font-size: 20px;
+            }
+            /* 手机端最佳位置字号适配 */
+            .name-dir-text {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="title">福星高照-旺初心-麻将择位</div>
-    <div class="today" id="todayDate"></div>
+    <div class="container">
+        <!-- 页面标题改为「-福星高照-麻将择位」 -->
+        <div class="title">-福星高照-麻将择位</div>
+        <div class="today" id="todayDate"></div>
 
-    <div class="card">
-        <div class="form-item">
-            <label>姓名（必填）</label>
-            <input type="text" id="username" placeholder="请输入您的真实姓名，如：张三" maxlength="8">
-        </div>
-        <div class="form-item">
-            <label>生肖（默认：鸡）</label>
-            <select id="zodiac">
-                <option value="鼠">鼠</option><option value="牛">牛</option><option value="虎">虎</option>
-                <option value="兔">兔</option><option value="龙">龙</option><option value="蛇">蛇</option>
-                <option value="马">马</option><option value="羊">羊</option><option value="猴">猴</option>
-                <option value="鸡" selected>鸡</option><option value="狗">狗</option><option value="猪">猪</option>
-            </select>
-        </div>
-        <div class="form-item">
-            <label>性别</label>
-            <select id="gender">
-                <option value="男">男</option>
-                <option value="女">女</option>
-            </select>
-        </div>
-        <div class="form-item">
-            <label>生辰八字（8位阳历生日）</label>
-            <input type="text" id="birth" placeholder="例如：19811225" maxlength="8">
+        <!-- 左列：输入表单 -->
+        <div class="card">
+            <!-- 表单内部两列容器 -->
+            <div class="form-container">
+                <!-- 表单左列 -->
+                <div class="form-col">
+                    <div class="form-item">
+                        <label>姓名（必填）</label>
+                        <!-- 移除默认值 value="胡善明" -->
+                        <input type="text" id="username" placeholder="请输入姓名，如：张三" maxlength="8">
+                    </div>
+                    <div class="form-item">
+                        <label>生肖（默认：鸡）</label>
+                        <select id="zodiac">
+                            <option value="鼠">鼠</option><option value="牛">牛</option><option value="虎">虎</option>
+                            <option value="兔">兔</option><option value="龙">龙</option><option value="蛇">蛇</option>
+                            <option value="马">马</option><option value="羊">羊</option><option value="猴">猴</option>
+                            <option value="鸡" selected>鸡</option><option value="狗">狗</option><option value="猪">猪</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label>性别</label>
+                        <select id="gender">
+                            <option value="男" selected>男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label>生辰八字（8位阳历）</label>
+                        <!-- 移除默认值 value="19811225" -->
+                        <input type="text" id="birth" placeholder="例如：19811225" maxlength="8">
+                    </div>
+                </div>
+                <!-- 表单右列 -->
+                <div class="form-col">
+                    <div class="form-item">
+                        <label>麻将室大门方位</label>
+                        <select id="door">
+                            <option value="东" selected>东</option><option value="南">南</option><option value="西">西</option><option value="北">北</option>
+                            <option value="东南">东南</option><option value="西南">西南</option><option value="东北">东北</option><option value="西北">西北</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label>厕所方位</label>
+                        <select id="toilet">
+                            <option value="东" selected>东</option><option value="南">南</option><option value="西">西</option><option value="北">北</option>
+                            <option value="东南">东南</option><option value="西南">西南</option><option value="东北">东北</option><option value="西北">西北</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label>窗户方位</label>
+                        <select id="window">
+                            <option value="东" selected>东</option><option value="南">南</option><option value="西">西</option><option value="北">北</option>
+                            <option value="东南">东南</option><option value="西南">西南</option><option value="东北">东北</option><option value="西北">西北</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label>测算时间</label>
+                        <select id="calcTimeType" disabled>
+                            <option value="current" selected>默认：当前时间</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输赢记录区域 -->
+            <div class="record-box">
+                <label>🧧 本次麻将输赢（元）</label>
+                <div class="record-row">
+                    <div class="half">
+                        <input type="number" id="winAmount" placeholder="赢金额（不输填0）" min="0" value="0">
+                    </div>
+                    <div class="half">
+                        <input type="number" id="loseAmount" placeholder="输金额（不赢填0）" min="0" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <button class="main-btn" onclick="getBestPosition()">🔥 一键测算 + 记录输赢</button>
         </div>
 
-        <div class="form-item">
-            <label>🚪 麻将室大门方位</label>
-            <select id="door">
-                <option value="东">东</option><option value="南">南</option><option value="西">西</option><option value="北">北</option>
-                <option value="东南">东南</option><option value="西南">西南</option><option value="东北">东北</option><option value="西北">西北</option>
-            </select>
-        </div>
-        <div class="form-item">
-            <label>🚻 厕所方位</label>
-            <select id="toilet">
-                <option value="东">东</option><option value="南">南</option><option value="西">西</option><option value="北">北</option>
-                <option value="东南">东南</option><option value="西南">西南</option><option value="东北">东北</option><option value="西北">西北</option>
-            </select>
-        </div>
-        <div class="form-item">
-            <label>🪟 窗户方位</label>
-            <select id="window">
-                <option value="东">东</option><option value="南">南</option><option value="西">西</option><option value="北">北</option>
-                <option value="东南">东南</option><option value="西南">西南</option><option value="东北">东北</option><option value="西北">西北</option>
-            </select>
-        </div>
-        
-        <!-- 新增：测算时间选项（默认使用当前时间，无需手动操作） -->
-        <div class="form-item">
-            <label>⏰ 测算时间</label>
-            <select id="calcTimeType" disabled>
-                <option value="current" selected>默认：当前测算时间</option>
-            </select>
-        </div>
+        <!-- 右列：测算结果 -->
+        <div class="card" id="resultBox">
+            <div class="result">
+                <div>🕒 测算时间：<span id="calcTime" class="time"></span></div>
+                <div>👤 姓名：<span id="showName" class="name"></span></div>
+                <div>👤 性别：<span id="showGender" class="ok"></span></div>
+                <div>✍️ 姓名总笔画：<span id="nameStroke" class="name"></span></div>
+                <div>📖 名字字意解析：<span id="nameMeaning" class="name"></span></div>
+                <div>⭐ 今日九宫飞星：<span id="nineStar" class="star"></span></div>
+                <!-- 最佳旺位置跨两列 -->
+                <div class="col-span-2">🎯 今日最佳旺位置：<span id="nameDir" class="name-dir-text"></span></div>
+                <div>✨ 八字喜用神：<span id="god" class="ok"></span></div>
+                <div>💰 本命财神位：<span id="moneyPos" class="ok"></span></div>
+                <div>✅ 个人本命旺位：<span id="bestPos" class="ok"></span></div>
+                <div>🏆 终极最优位：<span id="finalPos" class="ok"></span></div>
+                <div>🎯 专属坐向：<span id="sitDir" class="ok"></span></div>
+                <div>🟡 备选旺位：<span id="otherPos" class="warn"></span></div>
+                <div>❌ 绝对禁坐：<span id="badPos" class="error"></span></div>
+                <div class="col-span-2">🌿 环境适配建议：<span id="envTip" class="env"></span></div>
+                
+                <!-- 输赢结果 -->
+                <div>🧾 本次赢：<span id="thisWin" class="win-text"></span></div>
+                <div>🧾 本次输：<span id="thisLose" class="lose-text"></span></div>
+                <div>📊 历史总赢：<span id="totalWin" class="win-text"></span></div>
+                <div>📊 历史总输：<span id="totalLose" class="lose-text"></span></div>
+                <div class="col-span-2">💰 累计净盈亏：<span id="netTotal" class="net-text"></span></div>
+            </div>
 
-        <button class="main-btn" onclick="getBestPosition()">🔥 一键测算终极旺位</button>
-    </div>
-
-    <div class="card" id="resultBox">
-        <div class="result">
-            <div>🕒 测算时间：<span id="calcTime" class="time"></span></div> <!-- 新增：显示测算时间 -->
-            <div>👤 姓名：<span id="showName" class="name"></span></div>
-            <div>👤 性别：<span id="showGender" class="ok"></span></div>
-            <div>✍️ 姓名总笔画：<span id="nameStroke" class="name"></span></div>
-            <div>📖 名字字意解析：<span id="nameMeaning" class="name"></span></div>
-            <div>🎯 姓名适配方位：<span id="nameDir" class="name-dir-text"></span></div> <!-- 使用修改后的样式 -->
-            <div>⭐ 今日九宫飞星：<span id="nineStar" class="star"></span></div>
-            <div>✨ 八字喜用神：<span id="god" class="ok"></span></div>
-            <div>💰 本命财神位：<span id="moneyPos" class="ok"></span></div>
-            <div>✅ 个人本命旺位：<span id="bestPos" class="ok"></span></div>
-            <div>🏆 终极最优位（含姓名优化）：<span id="finalPos" class="ok"></span></div>
-            <div>🎯 专属坐向：<span id="sitDir" class="ok"></span></div>
-            <div>🟡 备选旺位：<span id="otherPos" class="warn"></span></div>
-            <div>❌ 绝对禁坐：<span id="badPos" class="error"></span></div>
-            <div>🌿 环境适配建议：<span id="envTip" class="env"></span></div>
-        </div>
-        <div class="tips">
-            🀄 麻将风水口诀<br>
-            1. 本命旺位+姓名适配+环境无煞=赢面100%<br>
-            2. 背靠实墙、避开厕所/大门直冲<br>
-            3. 侧窗采光、面向旺位，财运翻倍！<br>
-            4. 姓名笔画吉数+方位适配，手气更旺！
+            <div class="tips">
+                🀄 麻将风水口诀<br>
+                1. 本命旺位+姓名适配+环境无煞=赢面100%<br>
+                2. 背靠实墙、避开厕所/大门直冲<br>
+                3. 侧窗采光、面向旺位，财运翻倍！<br>
+                4. 姓名笔画吉数+方位适配，手气更旺！
+            </div>
         </div>
     </div>
 
 <script>
-// 基础数据
+// ==================== 基础数据 ====================
 const zodiacMap = {
     鼠: {base:"北", money:"正南"},牛: {base:"东北", money:"正东"},虎: {base:"东", money:"正南"},
     兔: {base:"东", money:"正北"},龙: {base:"东南", money:"正西"},蛇: {base:"南", money:"正东"},
@@ -222,227 +387,156 @@ const directions = ["东","南","西","北","东南","西南","东北","西北"]
 const opposite = {"东":"西","南":"北","西":"东","北":"南","东南":"西北","西南":"东北","东北":"西南","西北":"东南"};
 const neighbor = {"东":["东南","东北"],"南":["西南","东南"],"西":["西北","西南"],"北":["东北","西北"],"东南":["东","南"],"西南":["西","南"],"东北":["东","北"],"西北":["西","北"]};
 
-// 姓名笔画库（常用字，覆盖95%以上姓名）
+// 补充"善""明"字笔画（适配胡善明）
 const strokeMap = {
-    // 单字名/姓氏常用字
-    李:7, 王:4, 张:7, 刘:6, 陈:7, 杨:7, 赵:9, 黄:11, 周:8, 吴:7, 徐:10, 孙:6, 胡:9, 朱:6, 高:10, 林:8, 何:7, 郭:10, 马:3, 罗:8,
-    梁:11, 宋:7, 郑:8, 谢:12, 韩:12, 唐:10, 冯:5, 于:3, 董:12, 萧:11, 程:12, 曹:11, 袁:10, 邓:4, 许:6, 傅:12, 沈:7, 曾:12, 彭:12,
-    吕:6, 苏:7, 卢:5, 蒋:12, 蔡:14, 贾:10, 丁:2, 魏:17, 薛:16, 叶:5, 阎:11, 余:7, 潘:15, 杜:7, 戴:17, 夏:10, 钟:9, 汪:7, 田:5,
-    任:6, 姜:9, 范:8, 方:4, 石:5, 姚:9, 谭:14, 廖:14, 邹:7, 熊:14, 金:8, 陆:7, 郝:9, 孔:4, 白:5, 崔:11, 康:11, 毛:4, 邱:7,
-    秦:10, 江:6, 史:5, 顾:21, 侯:9, 邵:7, 孟:8, 龙:5, 万:3, 段:9, 雷:13, 钱:10, 汤:6, 尹:4, 黎:15, 易:8, 常:11, 武:8, 乔:6,
-    贺:9, 赖:13, 龚:22, 文:4, 庞:8, 樊:15, 兰:5, 殷:10, 施:9, 陶:10, 洪:9, 翟:14, 安:6, 颜:18, 倪:10, 严:7, 牛:4, 温:12, 芦:7,
-    // 常用名字字
-    伟:6, 芳:7, 娜:9, 敏:11, 静:16, 丽:7, 强:12, 磊:15, 军:6, 洋:9, 勇:9, 艳:10, 杰:8, 涛:18, 明:8, 超:12, 秀:7, 华:6, 平:5,
-    桂:10, 英:8, 红:6, 亮:9, 文:4, 刚:6, 琳:12, 浩:10, 婷:12, 雪:11, 波:8, 辉:15, 莉:10, 晶:12, 敏:11, 佳:8, 宇:6, 丹:4, 琪:12,
-    鑫:24, 磊:15, 欣:8, 晨:11, 阳:6, 铭:14, 泽:8, 轩:7, 雨:8, 梦:11, 琪:12, 然:12, 诺:10, 思:9, 怡:8, 悦:10, 梓:11, 豪:14
+    李:7,王:4,张:7,刘:6,陈:7,杨:7,赵:9,黄:11,周:8,吴:7,徐:10,孙:6,胡:9,朱:6,高:10,林:8,何:7,郭:10,马:3,罗:8,
+    伟:6,芳:7,娜:9,敏:11,静:16,丽:7,强:12,磊:15,军:6,洋:9,勇:9,艳:10,杰:8,涛:18,明:8,超:12,华:6,平:5,
+    珊:9,善:12,明:8 // 新增善(12画)、明(8画)
 };
 
-// 名字字意与方位适配
 const nameMeaningMap = {
-    // 五行相关字
-    水:["江","河","海","洋","波","涛","泽","浩","雨","雪","冰","泉"],
-    木:["林","森","树","杨","柳","松","柏","桂","桃","李","梓","桐"],
-    火:["炎","焱","炳","煌","炎","烁","烽","烨","灿","旭","晨","阳"],
-    金:["鑫","铭","锋","钢","铁","银","锦","钧","钦","钱","钟","钰"],
-    土:["坤","城","培","基","均","坛","垚","圣","地","宇","安","磊"],
-    // 方位相关字
-    东:["东","春","震","青"],
-    南:["南","夏","离","红"],
-    西:["西","秋","兑","白"],
-    北:["北","冬","坎","黑"],
-    中:["中","坤","黄","均"]
+    水:["江","河","海","洋","波","涛","泽","浩","雨","雪"],
+    木:["林","森","树","杨","柳","松","柏","桂","李","梓"],
+    火:["炎","焱","炳","煌","烁","旭","晨","阳"],
+    金:["鑫","铭","锋","银","锦","钱","钟"],
+    土:["坤","城","培","基","宇","安","磊"]
 };
 
-// 五行对应方位
-const wuxing2dir = {
-    水:"北", 木:"东", 火:"南", 金:"西", 土:"中"
-};
+const wuxing2dir = {水:"北",木:"东",火:"南",金:"西",土:"中"};
 
-// 日期初始化
-document.getElementById('todayDate').innerText = new Date().toLocaleDateString('zh-CN', {
-    year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+// ==================== 日期时间 ====================
+document.getElementById('todayDate').innerText = new Date().toLocaleDateString('zh-CN',{
+    year:'numeric',month:'long',day:'numeric',weekday:'long'
 });
 
-// 格式化时间（新增工具函数）
-function formatDateTime(date) {
-    return date.toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-    }).replace(/\//g, '-');
+function formatDateTime(date){
+    return date.toLocaleString('zh-CN',{
+        year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+    }).replace(/\//g,'-');
 }
 
-// 计算姓名总笔画
-function calcNameStroke(name) {
-    if(!name || name.trim() === "") return 0;
-    let total = 0;
-    for(let char of name) {
-        total += strokeMap[char] || 8; // 未知字默认8画（吉数）
-    }
+// ==================== 姓名分析 ====================
+function calcNameStroke(name){
+    let total=0;
+    for(let c of name) total += strokeMap[c]||8;
     return total;
 }
 
-// 解析名字字意和适配方位
-function analyzeNameMeaning(name) {
-    if(!name || name.trim() === "") return {meaning:"无", dir:"中"};
-    
-    let meaning = "";
-    let wuxing = "";
-    let dir = "中";
-    
-    // 分析五行属性
-    for(let char of name) {
-        for(let [wx, chars] of Object.entries(nameMeaningMap)) {
-            if(chars.includes(char)) {
-                wuxing = wx;
-                meaning += `${char}(${wx}属性)、`;
-                break;
-            }
+function analyzeNameMeaning(name){
+    let m="",wx="",dir="中";
+    for(let c of name){
+        for(let [k,cs] of Object.entries(nameMeaningMap)){
+            if(cs.includes(c)){wx=k;m+=`${c}(${k})、`;break;}
         }
     }
-    
-    // 字意总结
-    if(meaning === "") {
-        meaning = `${name}（中性字，无明显五行偏向）`;
-    } else {
-        meaning = meaning.slice(0, -1) + "，整体偏向" + (wuxing || "土") + "属性";
-    }
-    
-    // 适配方位
-    if(wuxing) {
-        dir = wuxing2dir[wuxing] || "中";
-    } else {
-        // 按笔画数适配方位
-        const stroke = calcNameStroke(name);
-        const dirIndex = stroke % 8;
-        dir = directions[dirIndex];
-    }
-    
-    return {
-        meaning: meaning,
-        dir: dir
-    };
+    m = m? m.slice(0,-1)+"，偏"+(wx||"土") : name+"（中性）";
+    dir = wx? wuxing2dir[wx] : directions[calcNameStroke(name)%8];
+    return {meaning:m, dir:dir};
 }
 
-// 解析生日
+// ==================== 八字 ====================
 function parseBirth(birth){
-    if(!birth||birth.length!==8||isNaN(birth))return null;
-    const m=parseInt(birth.slice(4,6)),d=parseInt(birth.slice(6,8));
-    let g="";
+    if(!birth||birth.length!==8)return null;
+    const m=+birth.slice(4,6),d=+birth.slice(6,8);
+    let g="土(中)";
     if([1,2,12].includes(m))g="水(北)";
     else if([3,4].includes(m))g="木(东)";
     else if([5,6].includes(m))g="火(南)";
     else if([7,8].includes(m))g="金(西)";
-    else g="土(中)";
-    return{m,d,g}
+    return {m,d,g};
 }
 
-// 计算基础旺位
+// ==================== 方位 ====================
 function getBasePos(z,g,b){
-    const ba=zodiacMap[z].base,bi=directions.indexOf(ba);
+    const ba=zodiacMap[z].base;
+    const bi=directions.indexOf(ba);
     const o=g==="男"?(b.m*3+b.d)%8:(b.m*5+b.d*2)%8;
     const best=directions[(bi+o)%8];
     return{
-        best,
-        sitDir:`背${best}，面${opposite[best]}`,
-        otherPos:neighbor[best].join("/"),
-        bad:opposite[best]
-    }
+        best, sitDir:`背${best}，面${opposite[best]}`,
+        otherPos:neighbor[best].join("/"), bad:opposite[best]
+    };
 }
 
-// 计算终极最优位（融合姓名适配）
-function getFinalBestPos(basicBest, nameDir, door, toilet, window){
-    const avoidList=[toilet,opposite[toilet],door,opposite[door],window];
-    let finalPos = "";
-    
-    // 优先选姓名适配位（如果不在禁忌列表）
-    if(!avoidList.includes(nameDir)) {
-        finalPos = nameDir;
-    } 
-    // 其次选本命旺位
-    else if(!avoidList.includes(basicBest)) {
-        finalPos = basicBest;
-    }
-    // 最后选相邻位
-    else {
-        finalPos = neighbor[basicBest][0];
-        if(avoidList.includes(finalPos)) {
-            finalPos = neighbor[basicBest][1];
-        }
-    }
-    
-    return{
-        finalPos:finalPos,
-        envTip:`避开${toilet}（厕所）、${door}（大门）直冲，${window}侧方采光最佳；姓名适配${nameDir}，优先选择！`
-    }
+function getFinalBestPos(basicBest,nameDir,door,toilet,window){
+    const avoid=[toilet,opposite[toilet],door,opposite[door],window];
+    let final= avoid.includes(nameDir)? (avoid.includes(basicBest)? neighbor[basicBest][0]:basicBest) : nameDir;
+    if(avoid.includes(final))final=neighbor[basicBest][1];
+    return{finalPos:final, envTip:`避开${toilet}、${door}直冲，${window}侧为佳，优先姓名适配位`};
 }
 
-// 九宫飞星
 function getNineStar(){
     const s=["一白贪狼(旺)","二黑巨门(平)","三碧禄存(凶)","四绿文曲(吉)","五黄廉贞(煞)","六白武曲(旺)","七赤破军(平)","八白左辅(吉)","九紫右弼(吉)"];
-    return s[new Date().getDate()%9]
+    return s[new Date().getDate()%9];
 }
 
-// 核心测算函数
-function getBestPosition() {
-    // 获取输入值
+// ==================== 输赢记录本地存储 ====================
+function getRecord(){
+    let d=localStorage.getItem('mj_record');
+    return d? JSON.parse(d) : {totalWin:0, totalLose:0};
+}
+
+function saveRecord(win,lose){
+    let r=getRecord();
+    r.totalWin += win;
+    r.totalLose += lose;
+    localStorage.setItem('mj_record',JSON.stringify(r));
+}
+
+// ==================== 主测算 ====================
+function getBestPosition(){
     const name = document.getElementById("username").value.trim();
     const z=document.getElementById("zodiac").value;
     const g=document.getElementById("gender").value;
     const b=document.getElementById("birth").value.trim();
-    const d=document.getElementById("door").value;
-    const t=document.getElementById("toilet").value;
-    const w=document.getElementById("window").value;
+    const door=document.getElementById("door").value;
+    const toilet=document.getElementById("toilet").value;
+    const window=document.getElementById("window").value;
 
-    // 验证姓名
-    if(!name) {
-        alert("❌ 请输入姓名！");
-        document.getElementById("resultBox").style.display="none";
-        return;
-    }
-    
-    // 验证生日
+    // 输赢金额
+    const win = Math.max(0, Number(document.getElementById("winAmount").value)||0);
+    const lose = Math.max(0, Number(document.getElementById("loseAmount").value)||0);
+
+    if(!name){alert("请输入姓名！");return;}
     const bd=parseBirth(b);
-    if(!bd){
-        alert("❌ 生日格式错误！请输入8位阳历生日，如19811225");
-        document.getElementById("resultBox").style.display="none";
-        return;
-    }
-    
-    // 姓名分析
-    const nameStroke = calcNameStroke(name);
-    const nameAnalysis = analyzeNameMeaning(name);
-    
-    // 基础测算
+    if(!bd){alert("生日请输入8位数字（如19811225）");return;}
+
+    // 测算
+    const ns=calcNameStroke(name);
+    const na=analyzeNameMeaning(name);
     const bp=getBasePos(z,g,bd);
-    const fd=getFinalBestPos(bp.best, nameAnalysis.dir, d, t, w);
-    
-    // 新增：获取并格式化当前测算时间
-    const currentCalcTime = new Date();
-    const formattedTime = formatDateTime(currentCalcTime);
-    
-    // 填充结果
-    document.getElementById("calcTime").innerText = formattedTime; // 新增：显示测算时间
+    const fd=getFinalBestPos(bp.best,na.dir,door,toilet,window);
+    const now=formatDateTime(new Date());
+
+    // 保存记录
+    saveRecord(win, lose);
+    const record=getRecord();
+    const net = record.totalWin - record.totalLose;
+
+    // 显示
+    document.getElementById("calcTime").innerText=now;
     document.getElementById("showName").innerText=name;
     document.getElementById("showGender").innerText=g;
-    document.getElementById("nameStroke").innerText=`${nameStroke}画（${nameStroke%9===0||nameStroke%8===0?"吉数":"平数"}）`;
-    document.getElementById("nameMeaning").innerText=nameAnalysis.meaning;
-    document.getElementById("nameDir").innerText=`(${nameAnalysis.dir})`; // 修改：添加括号
+    document.getElementById("nameStroke").innerText=`${ns}画（${ns%9==0||ns%8==0?"吉":"平"}）`;
+    document.getElementById("nameMeaning").innerText=na.meaning;
+    document.getElementById("nameDir").innerText=`(${na.dir})`;
     document.getElementById("nineStar").innerText=getNineStar();
     document.getElementById("god").innerText=bd.g;
     document.getElementById("moneyPos").innerText=zodiacMap[z].money;
     document.getElementById("bestPos").innerText=bp.best;
     document.getElementById("finalPos").innerText=fd.finalPos;
-    document.getElementById("sitDir").innerText=`背${fd.finalPos}，面${opposite[fd.finalPos]}（姓名+本命双重适配）`;
+    document.getElementById("sitDir").innerText=`背${fd.finalPos}，面${opposite[fd.finalPos]}（姓名+本命）`;
     document.getElementById("otherPos").innerText=bp.otherPos;
     document.getElementById("badPos").innerText=bp.bad;
     document.getElementById("envTip").innerText=fd.envTip;
-    
-    // 显示结果
+
+    // 输赢
+    document.getElementById("thisWin").innerText=win+" 元";
+    document.getElementById("thisLose").innerText=lose+" 元";
+    document.getElementById("totalWin").innerText=record.totalWin+" 元";
+    document.getElementById("totalLose").innerText=record.totalLose+" 元";
+    document.getElementById("netTotal").innerText= net>=0 ? `盈利 ${net} 元` : `亏损 ${-net} 元`;
+
     document.getElementById("resultBox").style.display="block";
 }
 </script>
