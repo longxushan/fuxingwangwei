@@ -2,8 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <!-- 标题修改为「-福星高照-麻将择位」 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>-福星高照-麻将择位</title>
     <style>
         * {
@@ -15,77 +14,80 @@
         body {
             background: linear-gradient(135deg, #101010 0%, #1a1a2e 100%);
             color: #fff;
-            padding: 10px; /* 减少整体内边距，更紧凑 */
+            padding: 10px;
             min-height: 100vh;
+            -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
         }
-        /* 核心：整体两列布局，优化间距更紧凑 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 整体两列 */
-            gap: 10px; /* 列间距缩小，更紧凑 */
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 100%;
+            padding: 0 4px;
         }
-        /* 标题样式调整，更紧凑 */
         .title {
-            grid-column: 1 / 3; /* 跨两列 */
+            grid-column: 1 / 2;
             text-align: center;
-            font-size: 24px; /* 字号缩小，更紧凑 */
+            font-size: 24px;
             color: #ffd700;
-            margin: 8px 0 10px; /* 减少上下间距 */
+            margin: 8px 0 10px;
             font-weight: bold;
             text-shadow: 0 0 8px #ffd700;
             letter-spacing: 1px;
         }
         .today {
-            grid-column: 1 / 3; /* 跨两列 */
+            grid-column: 1 / 2;
             text-align: center;
             color: #ccc;
-            font-size: 12px; /* 字号缩小 */
+            font-size: 12px;
             margin-bottom: 8px;
         }
-        /* 卡片样式优化，更紧凑 */
         .card {
-            background: rgba(40,40,50,0.9);
-            border-radius: 8px; /* 圆角缩小 */
-            padding: 12px; /* 内边距减少 */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,215,0,0.1);
+            background: rgba(40,40,50,0.95);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,215,0,0.15);
             height: fit-content;
+            transition: transform 0.2s ease;
         }
-
-        /* 表单内部两列排版（更紧凑） */
+        .card:active {
+            transform: scale(0.98);
+        }
         .form-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px; /* 表单内列间距缩小 */
+            gap: 10px;
+            margin-bottom: 12px;
         }
         .form-col {
             display: flex;
             flex-direction: column;
-            gap: 6px; /* 表单项间距缩小 */
+            gap: 8px;
         }
         .form-item {
             display: flex;
             flex-direction: column;
-            gap: 3px; /* 标签和输入框间距缩小 */
+            gap: 4px;
         }
         .form-item label {
-            font-size: 12px; /* 标签字号缩小 */
+            font-size: 13px;
             color: #ffd700;
             font-weight: 500;
             display: flex;
             align-items: center;
         }
-        /* 标签小图标 */
         .form-item label::before {
             content: "";
             display: inline-block;
-            width: 6px; /* 图标缩小 */
-            height: 6px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            margin-right: 4px;
+            margin-right: 6px;
         }
         .form-item:nth-child(1) label::before,
         .form-item:nth-child(5) label::before { background: #ffd700; }
@@ -95,91 +97,144 @@
         .form-item:nth-child(7) label::before { background: #f5a623; }
         .form-item:nth-child(4) label::before,
         .form-item:nth-child(8) label::before { background: #0099ff; }
-
-        /* 输入框/下拉框样式优化，更紧凑 */
         select, input {
             width: 100%;
-            padding: 8px 10px; /* 内边距减少 */
-            font-size: 12px; /* 字号缩小 */
-            border-radius: 6px; /* 圆角缩小 */
+            padding: 12px 14px;
+            font-size: 14px;
+            border-radius: 8px;
             border: none;
-            background: rgba(50,50,65,0.9);
+            background: rgba(50,50,65,0.95);
             color: #fff;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.2s ease;
             border: 1px solid transparent;
+            font-weight: 400;
         }
         select:focus, input:focus {
-            box-shadow: none;
-            border-color: rgba(255,215,0,0.3);
+            box-shadow: 0 0 0 2px rgba(255,215,0,0.2);
+            border-color: rgba(255,215,0,0.4);
+            background: rgba(60,60,75,0.95);
         }
-        /* 下拉框箭头样式 */
         select {
             appearance: none;
-            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%23ccc'%3E%3Cpath d='M0 0l5 5 5-5z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%23ffd700'%3E%3Cpath d='M0 0l6 6 6-6z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 8px center;
-            background-size: 10px;
-            padding-right: 24px;
+            background-position: right 12px center;
+            background-size: 12px;
+            padding-right: 36px;
         }
-
-        /* 输赢记录区域（更紧凑） */
         .record-box {
-            grid-column: 1 / 3;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255,215,0,0.1);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,215,0,0.15);
         }
         .record-box label {
             display: block;
             color: #ffd700;
-            font-size: 12px;
-            margin-bottom: 4px;
+            font-size: 13px;
+            margin-bottom: 6px;
         }
         .record-row {
             display:flex;
-            gap:6px;
+            gap:10px;
+            margin-bottom: 8px;
         }
         .record-row .half {
             flex:1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
-        /* 按钮样式优化，更紧凑 */
+        .win-label, .lose-label {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+        .win-label {
+            color: #fff;
+            background: #00ff88;
+            text-shadow: 0 0 4px rgba(0,255,136,0.5);
+        }
+        .lose-label {
+            color: #fff;
+            background: #ff4444;
+            text-shadow: 0 0 4px rgba(255,68,68,0.5);
+        }
+        .total-amount-box {
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+        .total-amount-box input {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .profit {
+            color: #00ff88 !important;
+        }
+        .loss {
+            color: #ff4444 !important;
+        }
+        .zero {
+            color: #ffd700 !important;
+        }
         .main-btn {
-            grid-column: 1 / 3;
             width: 100%;
             background: linear-gradient(90deg, #ff4444, #ff6b6b);
             color: #fff;
             font-weight: bold;
-            padding: 8px; /* 内边距减少 */
-            border-radius: 6px;
+            padding: 14px;
+            border-radius: 10px;
             border: none;
-            font-size: 14px; /* 字号缩小 */
-            margin-top: 8px;
-            box-shadow: 0 2px 6px rgba(255,68,68,0.4);
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(255,68,68,0.5);
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.2s ease;
+            user-select: none;
+            margin-bottom: 12px; /* 新增：按钮下方增加间距 */
         }
         .main-btn:active {
             transform: scale(0.97);
             opacity: 0.9;
+            box-shadow: 0 2px 6px rgba(255,68,68,0.4);
         }
-
-        /* 结果区域两列排版（更紧凑） */
+        .record-btn {
+            width: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffb800);
+            color: #000;
+            font-weight: bold;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(255,215,0,0.5);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            margin-top: 8px;
+        }
+        .record-btn:active {
+            transform: scale(0.97);
+            opacity: 0.9;
+            box-shadow: 0 2px 6px rgba(255,215,0,0.4);
+        }
         .result {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px; /* 结果项间距缩小 */
-            font-size: 12px; /* 字号缩小 */
-            line-height: 1.6; /* 行高缩小 */
+            gap: 8px;
+            font-size: 14px;
+            line-height: 1.8;
         }
         .result div {
-            padding: 2px 0;
+            padding: 4px 0;
             word-break: break-all;
+            letter-spacing: 0.5px;
         }
-        /* 特殊项跨两列 */
         .result .col-span-2 {
             grid-column: 1 / 3;
+            padding: 6px 0;
         }
         .ok { color: #00ff88; font-weight:bold; }
         .warn { color: #ffff00; font-weight:bold; }
@@ -188,83 +243,150 @@
         .env { color: #1E90FF; font-weight:bold; }
         .name { color: #ff9d00; font-weight:bold; }
         .time { color: #66ccff; font-weight:bold; }
-
-        /* 今日最佳旺位置样式（跨两列，优化大小） */
         .name-dir-text { 
             color: #ff0000; 
             font-weight:bold; 
-            font-size: 28px; /* 字号缩小，更紧凑 */
-            text-shadow: 0 0 8px #ff0000;
+            font-size: 32px;
+            text-shadow: 0 0 10px #ff0000;
             display: inline-block;
-            margin: 3px 0;
+            margin: 6px 0;
         }
-
         .stat-item {
-            font-size:12px;
-            padding:2px 0;
+            font-size:14px;
+            padding:4px 0;
         }
         .win-text { color:#00ff88; font-weight:bold; }
         .lose-text { color:#ff4444; font-weight:bold; }
-        .net-text { color:#ffd700; font-weight:bold; font-size:14px; }
-
-        /* 提示区域更紧凑 */
+        .net-text { color:#ffd700; font-weight:bold; font-size:16px; }
         .tips {
             grid-column: 1 / 3;
-            background: rgba(50,50,65,0.6);
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 10px; /* 字号缩小 */
+            background: rgba(50,50,65,0.8);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 12px;
             color: #eee;
-            margin-top: 8px;
-            line-height: 1.3;
+            margin-top: 12px;
+            line-height: 1.6;
+            border: 1px solid rgba(255,215,0,0.1);
         }
         #resultBox {
             display: none;
+            margin-top: 10px;
+            margin-bottom: 10px; /* 新增：结果区域下方也加间距 */
+            padding: 16px;
+            background: rgba(50,50,70,0.9);
+            border-radius: 10px;
+            border: 1px solid rgba(255,215,0,0.2);
         }
-
-        /* 响应式适配：手机端优化（更紧凑） */
+        /* 修改：移除大屏双列布局，所有尺寸保持单列 */
         @media (max-width: 768px) {
             .container {
-                grid-template-columns: 1fr; /* 手机端整体单列 */
-                gap: 8px; /* 间距更小 */
+                gap: 12px;
+                padding: 0 6px;
             }
-            .title, .today {
-                grid-column: 1 / 2;
+            .form-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
             }
-            /* 手机端表单和结果都变回单列，间距更紧凑 */
-            .form-container, .result {
-                grid-template-columns: 1fr;
+            .result {
+                grid-template-columns: 1fr 1fr;
                 gap: 6px;
             }
-            .result .col-span-2, .record-box, .main-btn, .tips {
+            .result .col-span-2, .main-btn, .tips, .record-btn {
                 grid-column: 1 / 2;
             }
-            /* 手机端标题字号再缩小 */
+            .title {
+                font-size: 22px;
+            }
+            .name-dir-text {
+                font-size: 28px;
+            }
+        }
+        @media (max-width: 576px) {
+            body {
+                padding: 8px 4px;
+            }
+            .container {
+                gap: 10px;
+                padding: 0 4px;
+            }
+            .form-container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .result {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            .result .col-span-2 {
+                grid-column: 1 / 2;
+            }
             .title {
                 font-size: 20px;
+                margin: 6px 0 8px;
+                letter-spacing: 0;
             }
-            /* 手机端最佳位置字号适配 */
+            .today {
+                font-size: 11px;
+            }
+            .main-btn, .record-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+            select, input {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
             .name-dir-text {
-                font-size: 24px;
+                font-size: 26px;
+            }
+            .tips {
+                font-size: 11px;
+                padding: 10px;
+            }
+            .win-label, .lose-label {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
+        }
+        @media (max-width: 375px) {
+            .card {
+                padding: 12px;
+            }
+            .form-item label {
+                font-size: 12px;
+            }
+            .result {
+                font-size: 13px;
+            }
+            .main-btn, .record-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        @supports (bottom: env(safe-area-inset-bottom)) {
+            body {
+                padding-bottom: env(safe-area-inset-bottom) + 10px;
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+            .container {
+                margin-bottom: env(safe-area-inset-bottom) + 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 页面标题改为「-福星高照-麻将择位」 -->
         <div class="title">-福星高照-麻将择位</div>
         <div class="today" id="todayDate"></div>
 
-        <!-- 左列：输入表单 -->
+        <!-- 输入表单卡片 -->
         <div class="card">
-            <!-- 表单内部两列容器 -->
             <div class="form-container">
-                <!-- 表单左列 -->
                 <div class="form-col">
                     <div class="form-item">
                         <label>姓名（必填）</label>
-                        <!-- 移除默认值 value="胡善明" -->
                         <input type="text" id="username" placeholder="请输入姓名，如：张三" maxlength="8">
                     </div>
                     <div class="form-item">
@@ -279,17 +401,14 @@
                     <div class="form-item">
                         <label>性别</label>
                         <select id="gender">
-                            <option value="男" selected>男</option>
-                            <option value="女">女</option>
+                            <option value="男" selected>男</option><option value="女">女</option>
                         </select>
                     </div>
                     <div class="form-item">
                         <label>生辰八字（8位阳历）</label>
-                        <!-- 移除默认值 value="19811225" -->
                         <input type="text" id="birth" placeholder="例如：19811225" maxlength="8">
                     </div>
                 </div>
-                <!-- 表单右列 -->
                 <div class="form-col">
                     <div class="form-item">
                         <label>麻将室大门方位</label>
@@ -321,62 +440,68 @@
                 </div>
             </div>
 
-            <!-- 输赢记录区域 -->
+            <button class="main-btn" onclick="getBestPosition()">🔥 一键测算</button>
+
+            <!-- 测算结果卡片（移到按钮下方、记录区域上方） -->
+            <div id="resultBox">
+                <div class="result">
+                    <div>🕒 测算时间：<span id="calcTime" class="time"></span></div>
+                    <div>👤 姓名：<span id="showName" class="name"></span></div>
+                    <div>👤 性别：<span id="showGender" class="ok"></span></div>
+                    <div>✍️ 姓名总笔画：<span id="nameStroke" class="name"></span></div>
+                    <div>📖 名字字意解析：<span id="nameMeaning" class="name"></span></div>
+                    <div>⭐ 今日九宫飞星：<span id="nineStar" class="star"></span></div>
+                    <div class="col-span-2">🎯 今日最佳旺位置：<span id="nameDir" class="name-dir-text"></span></div>
+                    <div>✨ 八字喜用神：<span id="god" class="ok"></span></div>
+                    <div>💰 本命财神位：<span id="moneyPos" class="ok"></span></div>
+                    <div>✅ 个人本命旺位：<span id="bestPos" class="ok"></span></div>
+                    <div>🏆 终极最优位：<span id="finalPos" class="ok"></span></div>
+                    <div>🎯 专属坐向：<span id="sitDir" class="ok"></span></div>
+                    <div>🟡 备选旺位：<span id="otherPos" class="warn"></span></div>
+                    <div>❌ 绝对禁坐：<span id="badPos" class="error"></span></div>
+                    <div class="col-span-2">🌿 环境适配建议：<span id="envTip" class="env"></span></div>
+                    
+                    <div>🧾 本次赢：<span id="thisWin" class="win-text"></span></div>
+                    <div>🧾 本次输：<span id="thisLose" class="lose-text"></span></div>
+                    <div>📊 历史总赢：<span id="totalWin" class="win-text"></span></div>
+                    <div>📊 历史总输：<span id="totalLose" class="lose-text"></span></div>
+                    <div class="col-span-2">💰 累计净盈亏：<span id="netTotal" class="net-text"></span></div>
+                </div>
+
+                <div class="tips">
+                    🀄 麻将风水口诀<br>
+                    1. 本命旺位+姓名适配+环境无煞=赢面100%<br>
+                    2. 背靠实墙、避开厕所/大门直冲<br>
+                    3. 侧窗采光、面向旺位，财运翻倍！<br>
+                    4. 姓名笔画吉数+方位适配，手气更旺！
+                </div>
+            </div>
+
             <div class="record-box">
                 <label>🧧 本次麻将输赢（元）</label>
                 <div class="record-row">
                     <div class="half">
-                        <input type="number" id="winAmount" placeholder="赢金额（不输填0）" min="0" value="0">
+                        <span class="win-label">赢</span>
+                        <input type="number" id="winAmount" placeholder="不输填0" min="0" value="0">
                     </div>
                     <div class="half">
-                        <input type="number" id="loseAmount" placeholder="输金额（不赢填0）" min="0" value="0">
+                        <span class="lose-label">输</span>
+                        <input type="number" id="loseAmount" placeholder="不赢填0" min="0" value="0">
                     </div>
                 </div>
-            </div>
-
-            <button class="main-btn" onclick="getBestPosition()">🔥 一键测算 + 记录输赢</button>
-        </div>
-
-        <!-- 右列：测算结果 -->
-        <div class="card" id="resultBox">
-            <div class="result">
-                <div>🕒 测算时间：<span id="calcTime" class="time"></span></div>
-                <div>👤 姓名：<span id="showName" class="name"></span></div>
-                <div>👤 性别：<span id="showGender" class="ok"></span></div>
-                <div>✍️ 姓名总笔画：<span id="nameStroke" class="name"></span></div>
-                <div>📖 名字字意解析：<span id="nameMeaning" class="name"></span></div>
-                <div>⭐ 今日九宫飞星：<span id="nineStar" class="star"></span></div>
-                <!-- 最佳旺位置跨两列 -->
-                <div class="col-span-2">🎯 今日最佳旺位置：<span id="nameDir" class="name-dir-text"></span></div>
-                <div>✨ 八字喜用神：<span id="god" class="ok"></span></div>
-                <div>💰 本命财神位：<span id="moneyPos" class="ok"></span></div>
-                <div>✅ 个人本命旺位：<span id="bestPos" class="ok"></span></div>
-                <div>🏆 终极最优位：<span id="finalPos" class="ok"></span></div>
-                <div>🎯 专属坐向：<span id="sitDir" class="ok"></span></div>
-                <div>🟡 备选旺位：<span id="otherPos" class="warn"></span></div>
-                <div>❌ 绝对禁坐：<span id="badPos" class="error"></span></div>
-                <div class="col-span-2">🌿 环境适配建议：<span id="envTip" class="env"></span></div>
                 
-                <!-- 输赢结果 -->
-                <div>🧾 本次赢：<span id="thisWin" class="win-text"></span></div>
-                <div>🧾 本次输：<span id="thisLose" class="lose-text"></span></div>
-                <div>📊 历史总赢：<span id="totalWin" class="win-text"></span></div>
-                <div>📊 历史总输：<span id="totalLose" class="lose-text"></span></div>
-                <div class="col-span-2">💰 累计净盈亏：<span id="netTotal" class="net-text"></span></div>
-            </div>
+                <div class="total-amount-box">
+                    <label>💰 历史输赢总额（元）</label>
+                    <input type="number" id="totalAmount" placeholder="0" readonly>
+                </div>
 
-            <div class="tips">
-                🀄 麻将风水口诀<br>
-                1. 本命旺位+姓名适配+环境无煞=赢面100%<br>
-                2. 背靠实墙、避开厕所/大门直冲<br>
-                3. 侧窗采光、面向旺位，财运翻倍！<br>
-                4. 姓名笔画吉数+方位适配，手气更旺！
+                <button class="record-btn" onclick="recordWinLoseAmount()">📝 记录输赢金额</button>
             </div>
         </div>
     </div>
 
 <script>
-// ==================== 基础数据 ====================
+// 基础数据定义
 const zodiacMap = {
     鼠: {base:"北", money:"正南"},牛: {base:"东北", money:"正东"},虎: {base:"东", money:"正南"},
     兔: {base:"东", money:"正北"},龙: {base:"东南", money:"正西"},蛇: {base:"南", money:"正东"},
@@ -387,11 +512,10 @@ const directions = ["东","南","西","北","东南","西南","东北","西北"]
 const opposite = {"东":"西","南":"北","西":"东","北":"南","东南":"西北","西南":"东北","东北":"西南","西北":"东南"};
 const neighbor = {"东":["东南","东北"],"南":["西南","东南"],"西":["西北","西南"],"北":["东北","西北"],"东南":["东","南"],"西南":["西","南"],"东北":["东","北"],"西北":["西","北"]};
 
-// 补充"善""明"字笔画（适配胡善明）
 const strokeMap = {
     李:7,王:4,张:7,刘:6,陈:7,杨:7,赵:9,黄:11,周:8,吴:7,徐:10,孙:6,胡:9,朱:6,高:10,林:8,何:7,郭:10,马:3,罗:8,
     伟:6,芳:7,娜:9,敏:11,静:16,丽:7,强:12,磊:15,军:6,洋:9,勇:9,艳:10,杰:8,涛:18,明:8,超:12,华:6,平:5,
-    珊:9,善:12,明:8 // 新增善(12画)、明(8画)
+    珊:9,善:12,明:8
 };
 
 const nameMeaningMap = {
@@ -404,24 +528,26 @@ const nameMeaningMap = {
 
 const wuxing2dir = {水:"北",木:"东",火:"南",金:"西",土:"中"};
 
-// ==================== 日期时间 ====================
+// 初始化日期显示
 document.getElementById('todayDate').innerText = new Date().toLocaleDateString('zh-CN',{
     year:'numeric',month:'long',day:'numeric',weekday:'long'
 });
 
+// 格式化时间
 function formatDateTime(date){
     return date.toLocaleString('zh-CN',{
         year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
     }).replace(/\//g,'-');
 }
 
-// ==================== 姓名分析 ====================
+// 姓名笔画计算
 function calcNameStroke(name){
     let total=0;
     for(let c of name) total += strokeMap[c]||8;
     return total;
 }
 
+// 名字字意解析
 function analyzeNameMeaning(name){
     let m="",wx="",dir="中";
     for(let c of name){
@@ -434,7 +560,7 @@ function analyzeNameMeaning(name){
     return {meaning:m, dir:dir};
 }
 
-// ==================== 八字 ====================
+// 解析生辰八字
 function parseBirth(birth){
     if(!birth||birth.length!==8)return null;
     const m=+birth.slice(4,6),d=+birth.slice(6,8);
@@ -446,7 +572,7 @@ function parseBirth(birth){
     return {m,d,g};
 }
 
-// ==================== 方位 ====================
+// 获取基础方位
 function getBasePos(z,g,b){
     const ba=zodiacMap[z].base;
     const bi=directions.indexOf(ba);
@@ -458,6 +584,7 @@ function getBasePos(z,g,b){
     };
 }
 
+// 获取最终最优方位
 function getFinalBestPos(basicBest,nameDir,door,toilet,window){
     const avoid=[toilet,opposite[toilet],door,opposite[door],window];
     let final= avoid.includes(nameDir)? (avoid.includes(basicBest)? neighbor[basicBest][0]:basicBest) : nameDir;
@@ -465,25 +592,79 @@ function getFinalBestPos(basicBest,nameDir,door,toilet,window){
     return{finalPos:final, envTip:`避开${toilet}、${door}直冲，${window}侧为佳，优先姓名适配位`};
 }
 
+// 获取九宫飞星
 function getNineStar(){
     const s=["一白贪狼(旺)","二黑巨门(平)","三碧禄存(凶)","四绿文曲(吉)","五黄廉贞(煞)","六白武曲(旺)","七赤破军(平)","八白左辅(吉)","九紫右弼(吉)"];
     return s[new Date().getDate()%9];
 }
 
-// ==================== 输赢记录本地存储 ====================
+// 输赢记录本地存储
 function getRecord(){
     let d=localStorage.getItem('mj_record');
     return d? JSON.parse(d) : {totalWin:0, totalLose:0};
 }
 
+// 保存输赢记录
 function saveRecord(win,lose){
     let r=getRecord();
     r.totalWin += win;
     r.totalLose += lose;
     localStorage.setItem('mj_record',JSON.stringify(r));
+    updateTotalAmount(); // 更新总额显示
 }
 
-// ==================== 主测算 ====================
+// 更新历史总额显示
+function updateTotalAmount() {
+    const record = getRecord();
+    const totalAmount = record.totalWin - record.totalLose;
+    const totalAmountInput = document.getElementById('totalAmount');
+    
+    totalAmountInput.value = totalAmount;
+    totalAmountInput.className = '';
+    if (totalAmount > 0) {
+        totalAmountInput.classList.add('profit');
+    } else if (totalAmount < 0) {
+        totalAmountInput.classList.add('loss');
+    } else {
+        totalAmountInput.classList.add('zero');
+    }
+}
+
+// 新增：独立的记录输赢金额函数（修复核心）
+function recordWinLoseAmount() {
+    // 获取输入的输赢金额
+    const win = Math.max(0, Number(document.getElementById("winAmount").value)||0);
+    const lose = Math.max(0, Number(document.getElementById("loseAmount").value)||0);
+    
+    // 验证输入
+    if (win < 0 || lose < 0) {
+        alert("金额不能为负数！");
+        return;
+    }
+    
+    // 保存记录
+    saveRecord(win, lose);
+    
+    // 提示用户
+    alert(`已记录：赢${win}元，输${lose}元\n历史总额已更新`);
+    
+    // 清空本次输入（可选）
+    document.getElementById("winAmount").value = 0;
+    document.getElementById("loseAmount").value = 0;
+    
+    // 更新结果区域的输赢数据（如果结果区域已显示）
+    if (document.getElementById("resultBox").style.display === "block") {
+        const record = getRecord();
+        const net = record.totalWin - record.totalLose;
+        document.getElementById("thisWin").innerText = win + " 元";
+        document.getElementById("thisLose").innerText = lose + " 元";
+        document.getElementById("totalWin").innerText = record.totalWin + " 元";
+        document.getElementById("totalLose").innerText = record.totalLose + " 元";
+        document.getElementById("netTotal").innerText= net>=0 ? `盈利 ${net} 元` : `亏损 ${-net} 元`;
+    }
+}
+
+// 一键测算主函数（修复核心）
 function getBestPosition(){
     const name = document.getElementById("username").value.trim();
     const z=document.getElementById("zodiac").value;
@@ -493,27 +674,29 @@ function getBestPosition(){
     const toilet=document.getElementById("toilet").value;
     const window=document.getElementById("window").value;
 
-    // 输赢金额
-    const win = Math.max(0, Number(document.getElementById("winAmount").value)||0);
-    const lose = Math.max(0, Number(document.getElementById("loseAmount").value)||0);
-
-    if(!name){alert("请输入姓名！");return;}
+    // 基础验证
+    if(!name){
+        alert("请输入姓名！");
+        return;
+    }
     const bd=parseBirth(b);
-    if(!bd){alert("生日请输入8位数字（如19811225）");return;}
+    if(!bd){
+        alert("生日请输入8位数字（如19811225），或至少输入任意8位数字测试！");
+        return;
+    }
 
-    // 测算
+    // 测算核心逻辑
     const ns=calcNameStroke(name);
     const na=analyzeNameMeaning(name);
     const bp=getBasePos(z,g,bd);
     const fd=getFinalBestPos(bp.best,na.dir,door,toilet,window);
     const now=formatDateTime(new Date());
 
-    // 保存记录
-    saveRecord(win, lose);
+    // 获取输赢记录
     const record=getRecord();
     const net = record.totalWin - record.totalLose;
 
-    // 显示
+    // 渲染测算结果
     document.getElementById("calcTime").innerText=now;
     document.getElementById("showName").innerText=name;
     document.getElementById("showGender").innerText=g;
@@ -530,15 +713,35 @@ function getBestPosition(){
     document.getElementById("badPos").innerText=bp.bad;
     document.getElementById("envTip").innerText=fd.envTip;
 
-    // 输赢
-    document.getElementById("thisWin").innerText=win+" 元";
-    document.getElementById("thisLose").innerText=lose+" 元";
+    // 渲染输赢数据
+    document.getElementById("thisWin").innerText="0 元";
+    document.getElementById("thisLose").innerText="0 元";
     document.getElementById("totalWin").innerText=record.totalWin+" 元";
     document.getElementById("totalLose").innerText=record.totalLose+" 元";
     document.getElementById("netTotal").innerText= net>=0 ? `盈利 ${net} 元` : `亏损 ${-net} 元`;
 
+    // 显示结果区域
     document.getElementById("resultBox").style.display="block";
+    // 调整滚动逻辑：只滚动到按钮位置（因为结果就在按钮下方）
+    document.getElementById("resultBox").scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+// 页面初始化
+window.onload = function() {
+    updateTotalAmount(); // 初始化显示历史总额
+}
+
+// 手机端交互优化
+document.getElementById('username').addEventListener('touchstart', function() {
+    this.focus();
+});
+window.addEventListener('resize', function() {
+    if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') {
+        setTimeout(() => {
+            document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+    }
+});
 </script>
 </body>
 </html>
